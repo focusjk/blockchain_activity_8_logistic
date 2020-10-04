@@ -40,10 +40,10 @@ func (k Keeper) SetDeal(ctx sdk.Context, deal types.Deal) {
 	store.Set(key, bz)
 }
 
-func (k Keeper) GetDeal(ctx sdk.Context, creator sdk.AccAddress) (types.Deal, error) {
+func (k Keeper) GetDeal(ctx sdk.Context, creator string) (types.Deal, error) {
 	store := ctx.KVStore(k.storeKey)
 	var deal types.Deal
-	byteKey := []byte(types.DealPrefix + string(deal.Creator))
+	byteKey := []byte(types.DealPrefix + creator)
 	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &deal)
 	if err != nil {
 		return deal, err
