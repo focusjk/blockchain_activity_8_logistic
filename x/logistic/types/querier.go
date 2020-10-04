@@ -1,22 +1,16 @@
 package types
 
+import "strings"
 
 // Query endpoints supported by the logistic querier
 const (
-	// TODO: Describe query parameters, update <action> with your query
-	// Query<Action>    = "<action>"
+	QueryDeals = "deals"
+	QueryDeal  = "deal"
 )
 
-/* 
-Below you will be able how to set your own queries:
-
-
-// QueryResList Queries Result Payload for a query
-type QueryResList []string
+type QueryResDeals []string
 
 // implement fmt.Stringer
-func (n QueryResList) String() string {
+func (n QueryResDeals) String() string {
 	return strings.Join(n[:], "\n")
 }
-
-*/
