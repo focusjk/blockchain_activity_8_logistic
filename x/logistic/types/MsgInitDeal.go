@@ -20,13 +20,13 @@ type MsgInitDeal struct {
 }
 
 // NewMsgInitDeal creates a new MsgInitDeal instance
-func NewMsgInitDeal(creator sdk.AccAddress, customer sdk.AccAddress, price sdk.Coins, maxTemp int, mixTemp int) MsgInitDeal {
+func NewMsgInitDeal(creator sdk.AccAddress, customer sdk.AccAddress, price sdk.Coins, maxTemp int, minTemp int) MsgInitDeal {
 	return MsgInitDeal{
 		Creator:  creator,
 		Customer: customer,
 		Price:    price,
 		MaxTemp:  maxTemp,
-		MinTemp:  mixTemp,
+		MinTemp:  minTemp,
 	}
 }
 
@@ -54,7 +54,7 @@ func (msg MsgInitDeal) ValidateBasic() error {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "missing customer address")
 	}
 	if msg.MaxTemp <= msg.MinTemp {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "maxTmp/mixTmp invalid")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "maxTmp/minTmp invalid")
 	}
 	return nil
 }
