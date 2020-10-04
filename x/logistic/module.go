@@ -15,12 +15,13 @@ import (
 	"github.com/earth2378/logistic/x/logistic/client/cli"
 	"github.com/earth2378/logistic/x/logistic/client/rest"
 	"github.com/earth2378/logistic/x/logistic/keeper"
+	"github.com/earth2378/logistic/x/logistic/types"
 )
 
 // Type check to ensure the interface is properly implemented
 var (
-	_ module.AppModule           = AppModule{}
-	_ module.AppModuleBasic      = AppModuleBasic{}
+	_ module.AppModule      = AppModule{}
+	_ module.AppModuleBasic = AppModuleBasic{}
 )
 
 // AppModuleBasic defines the basic application module used by the logistic module.
@@ -33,7 +34,7 @@ func (AppModuleBasic) Name() string {
 
 // RegisterCodec registers the logistic module's types for the given codec.
 func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
-	types.RegisterCodec(cdc)
+	RegisterCodec(cdc)
 }
 
 // DefaultGenesis returns default genesis state as raw bytes for the logistic
@@ -73,15 +74,15 @@ func (AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
 type AppModule struct {
 	AppModuleBasic
 
-	keeper        keeper.Keeper
+	keeper keeper.Keeper
 	// TODO: Add keepers that your application depends on
 }
 
 // NewAppModule creates a new AppModule object
-func NewAppModule(k keeper.Keeper, /*TODO: Add Keepers that your application depends on*/) AppModule {
+func NewAppModule(k keeper.Keeper /*TODO: Add Keepers that your application depends on*/) AppModule {
 	return AppModule{
-		AppModuleBasic:      AppModuleBasic{},
-		keeper:              k,
+		AppModuleBasic: AppModuleBasic{},
+		keeper:         k,
 		// TODO: Add keepers that your application depends on
 	}
 }
@@ -111,7 +112,7 @@ func (AppModule) QuerierRoute() string {
 
 // NewQuerierHandler returns the logistic module sdk.Querier.
 func (am AppModule) NewQuerierHandler() sdk.Querier {
-	return types.NewQuerier(am.keeper)
+	return NewQuerier(am.keeper)
 }
 
 // InitGenesis performs genesis initialization for the logistic module. It returns
