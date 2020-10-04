@@ -42,7 +42,7 @@ func handlerMsgInitDeal(ctx sdk.Context, k Keeper, msg MsgInitDeal) (*sdk.Result
 		MinTemp:  msg.MinTemp,
 		State:    types.Created,
 	}
-	_, err := k.GetDeal(ctx, deal.Creator)
+	_, err := k.GetDeal(ctx, string(deal.Creator))
 	if err == nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal of this creator already exists")
 	}
@@ -75,7 +75,7 @@ func handlerMsgTransport(ctx sdk.Context, k Keeper, msg MsgTransport) (*sdk.Resu
 		Transporter: msg.Transporter,
 		State:       types.InTransit,
 	}
-	currentDeal, err := k.GetDeal(ctx, deal.Creator)
+	currentDeal, err := k.GetDeal(ctx, string(deal.Creator))
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal does not exists")
 	}
@@ -100,7 +100,7 @@ func handlerMsgUpdateTmp(ctx sdk.Context, k Keeper, msg MsgUpdateTmp) (*sdk.Resu
 	var deal = types.Deal{
 		Transporter: msg.Transporter,
 	}
-	currentDeal, err := k.GetDeal(ctx, deal.Creator)
+	currentDeal, err := k.GetDeal(ctx, string(deal.Creator))
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal does not exists")
 	}
@@ -130,7 +130,7 @@ func handlerMsgReceive(ctx sdk.Context, k Keeper, msg MsgReceive) (*sdk.Result, 
 		Customer: msg.Customer,
 		State:    types.Complete,
 	}
-	currentDeal, err := k.GetDeal(ctx, deal.Creator)
+	currentDeal, err := k.GetDeal(ctx, string(deal.Creator))
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal does not exists")
 	}
@@ -160,7 +160,7 @@ func handlerMsgReject(ctx sdk.Context, k Keeper, msg MsgReject) (*sdk.Result, er
 		Customer: msg.Customer,
 		State:    types.Cancel,
 	}
-	currentDeal, err := k.GetDeal(ctx, deal.Creator)
+	currentDeal, err := k.GetDeal(ctx, string(deal.Creator))
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal does not exists")
 	}
