@@ -14,19 +14,19 @@ var _ sdk.Msg = &MsgInitDeal{}
 type MsgInitDeal struct {
 	Creator  sdk.AccAddress `json:"creator" yaml:"creator"`
 	Customer sdk.AccAddress `json:"customer" yaml:"customer"`
-	Price    uint           `json:"price" yaml:"price"`
+	Price    sdk.Coins      `json:"price" yaml:"price"`
 	MaxTemp  int            `json:"maxTmp" yaml:"maxTmp"`
-	MixTemp  int            `json:"minTmp" yaml:"minTmp"`
+	MinTemp  int            `json:"minTmp" yaml:"minTmp"`
 }
 
 // NewMsgInitDeal creates a new MsgInitDeal instance
-func NewMsgInitDeal(creator sdk.AccAddress, customer sdk.AccAddress, price uint, maxTmp int, mixTmp int) MsgInitDeal {
+func NewMsgInitDeal(creator sdk.AccAddress, customer sdk.AccAddress, price sdk.Coins, maxTemp int, mixTemp int) MsgInitDeal {
 	return MsgInitDeal{
 		Creator:  creator,
 		Customer: customer,
 		Price:    price,
-		MaxTemp:  maxTmp,
-		MixTemp:  mixTmp,
+		MaxTemp:  maxTemp,
+		MinTemp:  mixTemp,
 	}
 }
 
@@ -53,10 +53,7 @@ func (msg MsgInitDeal) ValidateBasic() error {
 	if msg.Customer.Empty() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "missing customer address")
 	}
-	if msg.Price == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "invalid price")
-	}
-	if msg.MaxTemp <= msg.MixTemp {
+	if msg.MaxTemp <= msg.MinTemp {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "maxTmp/mixTmp invalid")
 	}
 	return nil
