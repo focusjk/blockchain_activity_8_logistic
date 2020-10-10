@@ -2,7 +2,7 @@ package logistic
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
+	// abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/earth2378/logistic/x/logistic/types"
 )
 
