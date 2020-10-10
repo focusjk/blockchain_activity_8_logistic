@@ -12,6 +12,4 @@ const (
 
 	// QuerierRoute to be used for querier msgs
 	QuerierRoute = ModuleName
-
-	DealPrefix = "de-"
 )
