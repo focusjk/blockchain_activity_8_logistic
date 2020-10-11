@@ -1,21 +1,32 @@
+// Step 8: add event and attribute
+// NOTE: add event const for handlerMsg
+
 package types
 
 // logistic module event types
 const (
-	EventTypeInitDeal  = "InitDeal"
-	EventTypeTransport = "Transport"
-	EventTypeUpdateTmp = "UpdateTmp"
-	EventTypeReceive   = "Receive"
-	EventTypeReject    = "Reject"
+	// TODO: Create your event types
+	// EventType<Action>    		= "action"
+	EventTypeInitDeal   = "InitDeal"
+	EventTypeTransport  = "Transport"
+	EventTypeUpdateTemp = "UpdateTemp"
+	EventTypeReceive    = "Receive"
+	EventTypeReject     = "Reject"
 
+	// TODO: Create keys fo your events, the values will be derivided from the msg
+	// AttributeKeyAddress  		= "address"
 	AttributeCreator     = "creator"
 	AttributeTransporter = "transporter"
 	AttributeCustomer    = "customer"
 	AttributePrice       = "price"
-	AttributeMaxTmp      = "maxTmp"
-	AttributeMinTmp      = "minTmp"
+	AttributeMaxTemp     = "maxTemp"
+	AttributeMinTemp     = "minTemp"
 	AttributeCancelable  = "cancelable"
-	AttributeUpdateTmp   = "updateTmp"
+	AttributeUpdateTemp  = "updateTemp"
+	AttributeOrderID     = "orderid"
+
+	// TODO: Some events may not have values for that reason you want to emit that something happened.
+	// AttributeValueDoubleSign = "double_sign"
 
 	AttributeValueCategory = ModuleName
 )

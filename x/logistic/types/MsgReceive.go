@@ -1,3 +1,6 @@
+// Step 1
+// Note: message for user to receive product with order id
+
 package types
 
 import (
@@ -13,12 +16,14 @@ var _ sdk.Msg = &MsgReceive{}
 // MsgReceive - struct for unjailing jailed validator
 type MsgReceive struct {
 	Customer sdk.AccAddress `json:"customer" yaml:"customer"` // address of the validator operator
+	OrderID  string         `json:"orderid" yaml:"orderid"`
 }
 
 // NewMsgReceive creates a new MsgReceive instance
-func NewMsgReceive(customer sdk.AccAddress) MsgReceive {
+func NewMsgReceive(customer sdk.AccAddress, orderid string) MsgReceive {
 	return MsgReceive{
 		Customer: customer,
+		OrderID:  orderid,
 	}
 }
 

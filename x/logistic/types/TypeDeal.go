@@ -1,3 +1,4 @@
+// Step 4: create Deal struct and define necessary enum
 package types
 
 import (
@@ -7,13 +8,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-type StateType int
+// enum of deal state
+type StateType string
 
 const (
-	Created = iota
-	InTransit
-	Complete
-	Cancel
+	Created   StateType = "Created"
+	InTransit           = "InTransit"
+	Complete            = "Complete"
+	Cancel              = "Cancel"
 )
 
 type Deal struct {
@@ -21,8 +23,9 @@ type Deal struct {
 	Transporter sdk.AccAddress `json:"transporter" yaml:"transporter"`
 	Customer    sdk.AccAddress `json:"customer" yaml:"customer"`
 	Price       sdk.Coins      `json:"price" yaml:"price"`
-	MaxTemp     int            `json:"maxTmp" yaml:"maxTmp"`
-	MinTemp     int            `json:"minTmp" yaml:"minTmp"`
+	OrderID     string         `json:"orderid" yaml:"orderid"`
+	MaxTemp     int            `json:"maxTemp" yaml:"maxTemp"`
+	MinTemp     int            `json:"minTemp" yaml:"minTemp"`
 	Cancelable  bool           `json:"cancelable" yaml:"cancelable"`
 	State       StateType      `json:"state" yaml:"state"`
 }
@@ -32,6 +35,7 @@ func (d Deal) String() string {
 	Transporter: %s
 	Customer: %s
 	Price: %s
+	OrderID: %s
 	MaxTemp: %d
 	MinTemp: %d,
 	Cancelable: %t,
@@ -40,6 +44,7 @@ func (d Deal) String() string {
 		d.Transporter,
 		d.Customer,
 		d.Price,
+		d.OrderID,
 		d.MaxTemp,
 		d.MinTemp,
 		d.Cancelable,

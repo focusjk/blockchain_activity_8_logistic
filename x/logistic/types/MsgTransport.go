@@ -1,3 +1,6 @@
+// Step 1
+// Note: message for creator to assign orderid to transporter
+
 package types
 
 import (
@@ -14,12 +17,14 @@ var _ sdk.Msg = &MsgTransport{}
 type MsgTransport struct {
 	Creator     sdk.AccAddress `json:"creator" yaml:"creator"`
 	Transporter sdk.AccAddress `json:"transporter" yaml:"transporter"`
+	OrderID     string         `json:"orderid" yaml:"orderid"`
 }
 
 // NewMsgTransport creates a new MsgTransport instance
-func NewMsgTransport(creator sdk.AccAddress, transporter sdk.AccAddress) MsgTransport {
+func NewMsgTransport(creator sdk.AccAddress, transporter sdk.AccAddress, orderid string) MsgTransport {
 	return MsgTransport{
 		Creator:     creator,
+		OrderID:     orderid,
 		Transporter: transporter,
 	}
 }

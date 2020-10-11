@@ -1,3 +1,6 @@
+// Step 1
+// Note: message for user to reject product with order id if temp out of thershold
+
 package types
 
 import (
@@ -13,12 +16,14 @@ var _ sdk.Msg = &MsgReject{}
 // MsgReject - struct for unjailing jailed validator
 type MsgReject struct {
 	Customer sdk.AccAddress `json:"customer" yaml:"customer"` // address of the validator operator
+	OrderID  string         `json:"orderid" yaml:"orderid"`
 }
 
 // NewMsgReject creates a new MsgReject instance
-func NewMsgReject(customer sdk.AccAddress) MsgReject {
+func NewMsgReject(customer sdk.AccAddress, orderid string) MsgReject {
 	return MsgReject{
 		Customer: customer,
+		OrderID:  orderid,
 	}
 }
 
