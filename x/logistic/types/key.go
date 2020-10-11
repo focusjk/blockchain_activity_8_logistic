@@ -13,3 +13,8 @@ const (
 	// QuerierRoute to be used for querier msgs
 	QuerierRoute = ModuleName
 )
+
+// Step 5: add deal prefix which is use in KVStore
+const (
+	DealPrefix = "deal-"
+)
