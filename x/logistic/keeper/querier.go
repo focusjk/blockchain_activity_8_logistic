@@ -1,7 +1,8 @@
 package keeper
 
 import (
-  // this line is used by starport scaffolding
+	// this line is used by starport scaffolding
+	"github.com/earth2378/logistic/x/logistic/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -12,7 +13,12 @@ import (
 func NewQuerier(k Keeper) sdk.Querier {
 	return func(ctx sdk.Context, path []string, req abci.RequestQuery) ([]byte, error) {
 		switch path[0] {
-    // this line is used by starport scaffolding # 2
+		// this line is used by starport scaffolding # 2
+		// Step 9: register list and get deal to main querier
+		case types.QueryDeals:
+			return listDeal(ctx, k)
+		case types.QueryDeal:
+			return getDeal(ctx, path[1:], k)
 		default:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown logistic query endpoint")
 		}
