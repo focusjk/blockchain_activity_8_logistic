@@ -1,3 +1,5 @@
+// Step 2: register new message to RegisterCodec
+
 package types
 
 import (
@@ -6,7 +8,12 @@ import (
 
 // RegisterCodec registers concrete types on codec
 func RegisterCodec(cdc *codec.Codec) {
-  // this line is used by starport scaffolding
+	// this line is used by starport scaffolding
+	cdc.RegisterConcrete(MsgInitDeal{}, "logistic/InitDeal", nil)
+	cdc.RegisterConcrete(MsgTransport{}, "logistic/Transport", nil)
+	cdc.RegisterConcrete(MsgUpdateTemp{}, "logistic/UpdateTemp", nil)
+	cdc.RegisterConcrete(MsgReceive{}, "logistic/Receive", nil)
+	cdc.RegisterConcrete(MsgReject{}, "logistic/Reject", nil)
 }
 
 // ModuleCdc defines the module codec
