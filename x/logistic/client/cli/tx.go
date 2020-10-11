@@ -22,7 +22,13 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 	}
 
 	logisticTxCmd.AddCommand(flags.PostCommands(
-    // this line is used by starport scaffolding
+		// this line is used by starport scaffolding
+		// Step 11: add cli command for tx
+		GetCmdInitDeal(cdc),
+		GetCmdTransport(cdc),
+		GetCmdUpdateTemp(cdc),
+		GetCmdReceive(cdc),
+		GetCmdReject(cdc),
 	)...)
 
 	return logisticTxCmd
