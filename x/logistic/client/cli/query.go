@@ -29,7 +29,10 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 	logisticQueryCmd.AddCommand(
 		flags.GetCommands(
-      // this line is used by starport scaffolding
+			// this line is used by starport scaffolding
+			// Step 13: add cli command for query
+			GetCmdDeals(queryRoute, cdc),
+			GetCmdDeal(queryRoute, cdc),
 		)...,
 	)
 
