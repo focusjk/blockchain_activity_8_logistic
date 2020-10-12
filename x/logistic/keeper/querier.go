@@ -15,8 +15,7 @@ func NewQuerier(k Keeper) sdk.Querier {
 		switch path[0] {
 		// this line is used by starport scaffolding # 2
 		// Step 9: register list and get deal to main querier
-		case types.QueryDeals:
-			return listDeal(ctx, k)
+
 		case types.QueryDeal:
 			return getDeal(ctx, path[1:], k)
 		default:

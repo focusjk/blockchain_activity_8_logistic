@@ -12,28 +12,6 @@ import (
 	"github.com/earth2378/logistic/x/logistic/types"
 )
 
-// GetCmdDeals don't receive args and return list of all deals
-func GetCmdDeals(queryRoute string, cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "list-deal",
-		Short: "list all deal",
-		Args:  cobra.ExactArgs(0),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/"+types.QueryDeals, queryRoute), nil)
-			if err != nil {
-				fmt.Printf("could not get deal\n%s\n", err.Error())
-				return nil
-			}
-
-			var out []types.Deal
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
-		},
-	}
-}
-
 // GetCmdDeals receive orderid and deal of the orderid
 func GetCmdDeal(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
