@@ -25,8 +25,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handlerMsgUpdateTemp(ctx, k, msg)
 		case types.MsgReceive:
 			return handlerMsgReceive(ctx, k, msg)
-		case types.MsgReject:
-			return handlerMsgReject(ctx, k, msg)
 
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)

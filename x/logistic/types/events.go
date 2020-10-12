@@ -11,7 +11,6 @@ const (
 	EventTypeTransport  = "Transport"
 	EventTypeUpdateTemp = "UpdateTemp"
 	EventTypeReceive    = "Receive"
-	EventTypeReject     = "Reject"
 
 	// TODO: Create keys fo your events, the values will be derivided from the msg
 	// AttributeKeyAddress  		= "address"
