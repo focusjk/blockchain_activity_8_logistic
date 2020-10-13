@@ -5,13 +5,13 @@ List all accounts
 - logisticcli keys list
 
 Check balance
-- logisticcli q account $(logisticcli keys show creator -a)
+- logisticcli q account $(logisticcli keys show owner -a)
 
 Init deal
-- logisticcli tx logistic init-deal order2 100token $(logisticcli keys show customer -a) 100 20 --from creator
+- logisticcli tx logistic init-deal order2 100token $(logisticcli keys show customer -a) 100 20 --from owner
 
 Transport
-- logisticcli tx logistic transport order2 $(logisticcli keys show transporter -a) --from creator
+- logisticcli tx logistic transport order2 $(logisticcli keys show transporter -a) --from owner
 
 Update temp
 - logisticcli tx logistic update-temp order2 25 --from transporter

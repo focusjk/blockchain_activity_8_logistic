@@ -25,8 +25,8 @@ func handlerMsgReceive(ctx sdk.Context, k keeper.Keeper, msg types.MsgReceive) (
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Invalid state")
 	}
 
-	// send coin to creator (make a payment)
-	sdkError := k.CoinKeeper.SendCoins(ctx, currentDeal.Customer, currentDeal.Creator, currentDeal.Price)
+	// send coin to owner (make a payment)
+	sdkError := k.CoinKeeper.SendCoins(ctx, currentDeal.Customer, currentDeal.Owner, currentDeal.Price)
 	if sdkError != nil {
 		return nil, sdkError
 	}

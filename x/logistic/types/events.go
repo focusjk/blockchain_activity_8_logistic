@@ -14,7 +14,7 @@ const (
 
 	// TODO: Create keys fo your events, the values will be derivided from the msg
 	// AttributeKeyAddress  		= "address"
-	AttributeCreator     = "creator"
+	AttributeOwner       = "owner"
 	AttributeTransporter = "transporter"
 	AttributeCustomer    = "customer"
 	AttributePrice       = "price"

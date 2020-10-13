@@ -17,8 +17,8 @@ func handlerMsgTransport(ctx sdk.Context, k keeper.Keeper, msg types.MsgTranspor
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal does not exists")
 	}
 	// check if caller is creater
-	if msg.Creator.String() != currentDeal.Creator.String() {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Fail assign transporter, invalid creator")
+	if msg.Owner.String() != currentDeal.Owner.String() {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Fail assign transporter, invalid owner")
 	}
 	// check if state is valid
 	if currentDeal.State != types.Created {
@@ -38,8 +38,8 @@ func handlerMsgTransport(ctx sdk.Context, k keeper.Keeper, msg types.MsgTranspor
 			sdk.EventTypeMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
 			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeTransport),
-			sdk.NewAttribute(sdk.AttributeKeySender, msg.Creator.String()),
-			sdk.NewAttribute(types.AttributeCreator, msg.Creator.String()),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Owner.String()),
+			sdk.NewAttribute(types.AttributeOwner, msg.Owner.String()),
 			sdk.NewAttribute(types.AttributeTransporter, msg.Transporter.String()),
 			sdk.NewAttribute(types.AttributeOrderID, msg.OrderID),
 		),

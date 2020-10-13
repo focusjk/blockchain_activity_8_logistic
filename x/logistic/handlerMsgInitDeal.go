@@ -13,7 +13,7 @@ import (
 func handlerMsgInitDeal(ctx sdk.Context, k keeper.Keeper, msg types.MsgInitDeal) (*sdk.Result, error) {
 	// add msg to deal struct
 	var deal = types.Deal{
-		Creator:    msg.Creator,
+		Owner:      msg.Owner,
 		Customer:   msg.Customer,
 		Price:      msg.Price,
 		OrderID:    msg.OrderID,
@@ -26,7 +26,7 @@ func handlerMsgInitDeal(ctx sdk.Context, k keeper.Keeper, msg types.MsgInitDeal)
 	// check if deal with provided orderid is exist or not
 	_, err := k.GetDeal(ctx, msg.OrderID)
 	if err == nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal of this creator already exists")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Deal of this owner already exists")
 	}
 
 	// create deak
@@ -38,8 +38,8 @@ func handlerMsgInitDeal(ctx sdk.Context, k keeper.Keeper, msg types.MsgInitDeal)
 			sdk.EventTypeMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
 			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeInitDeal),
-			sdk.NewAttribute(sdk.AttributeKeySender, msg.Creator.String()),
-			sdk.NewAttribute(types.AttributeCreator, msg.Creator.String()),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Owner.String()),
+			sdk.NewAttribute(types.AttributeOwner, msg.Owner.String()),
 			sdk.NewAttribute(types.AttributeCustomer, msg.Customer.String()),
 			sdk.NewAttribute(types.AttributePrice, msg.Price.String()),
 			sdk.NewAttribute(types.AttributeOrderID, msg.OrderID),

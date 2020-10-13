@@ -1,5 +1,5 @@
 // Step 1
-// Note: message for intiDeal, creator must provide customer, price, orderid, maxTemp and minTemp
+// Note: message for intiDeal, owner must provide customer, price, orderid, maxTemp and minTemp
 
 package types
 
@@ -15,7 +15,7 @@ var _ sdk.Msg = &MsgInitDeal{}
 
 // MsgInitDeal - struct for unjailing jailed validator
 type MsgInitDeal struct {
-	Creator  sdk.AccAddress `json:"creator" yaml:"creator"`
+	Owner    sdk.AccAddress `json:"owner" yaml:"owner"`
 	Customer sdk.AccAddress `json:"customer" yaml:"customer"`
 	Price    sdk.Coins      `json:"price" yaml:"price"`
 	OrderID  string         `json:"orderid" yaml:"orderid"`
@@ -24,9 +24,9 @@ type MsgInitDeal struct {
 }
 
 // NewMsgInitDeal creates a new MsgInitDeal instance
-func NewMsgInitDeal(creator sdk.AccAddress, orderId string, price sdk.Coins, customer sdk.AccAddress, maxTemp int, minTemp int) MsgInitDeal {
+func NewMsgInitDeal(owner sdk.AccAddress, orderId string, price sdk.Coins, customer sdk.AccAddress, maxTemp int, minTemp int) MsgInitDeal {
 	return MsgInitDeal{
-		Creator:  creator,
+		Owner:    owner,
 		Customer: customer,
 		Price:    price,
 		OrderID:  orderId,
@@ -41,7 +41,7 @@ const InitDealConst = "InitDeal"
 func (msg MsgInitDeal) Route() string { return RouterKey }
 func (msg MsgInitDeal) Type() string  { return InitDealConst }
 func (msg MsgInitDeal) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{sdk.AccAddress(msg.Creator)}
+	return []sdk.AccAddress{sdk.AccAddress(msg.Owner)}
 }
 
 // GetSignBytes gets the bytes for the message signer to sign on
@@ -52,8 +52,8 @@ func (msg MsgInitDeal) GetSignBytes() []byte {
 
 // ValidateBasic validity check for the AnteHandler
 func (msg MsgInitDeal) ValidateBasic() error {
-	if msg.Creator.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "missing creator address")
+	if msg.Owner.Empty() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "missing owner address")
 	}
 	if msg.Customer.Empty() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "missing customer address")

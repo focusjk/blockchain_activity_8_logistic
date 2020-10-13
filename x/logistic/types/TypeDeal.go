@@ -18,7 +18,7 @@ const (
 )
 
 type Deal struct {
-	Creator     sdk.AccAddress `json:"creator" yaml:"creator"`
+	Owner       sdk.AccAddress `json:"owner" yaml:"owner"`
 	Transporter sdk.AccAddress `json:"transporter" yaml:"transporter"`
 	Customer    sdk.AccAddress `json:"customer" yaml:"customer"`
 	Price       sdk.Coins      `json:"price" yaml:"price"`
@@ -30,7 +30,7 @@ type Deal struct {
 }
 
 func (d Deal) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Creator: %s
+	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 	Transporter: %s
 	Customer: %s
 	Price: %s
@@ -39,7 +39,7 @@ func (d Deal) String() string {
 	MinTemp: %d,
 	Cancelable: %t,
 	State: %s`,
-		d.Creator,
+		d.Owner,
 		d.Transporter,
 		d.Customer,
 		d.Price,

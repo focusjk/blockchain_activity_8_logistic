@@ -124,7 +124,7 @@ func GetCmdUpdateTemp(cdc *codec.Codec) *cobra.Command {
 }
 
 // GetCmdReceive receive orderid, temp
-// then customer accept product and make a payment to creator
+// then customer accept product and make a payment to owner
 func GetCmdReceive(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "receive [orderid]",
