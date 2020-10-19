@@ -21,7 +21,7 @@ func GetCmdDeal(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			orderid := args[0]
-
+			
 			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", queryRoute, types.QueryDeal, orderid), nil)
 			if err != nil {
 				fmt.Printf("could not resolve deal %s \n%s\n", orderid, err.Error())
@@ -33,4 +33,26 @@ func GetCmdDeal(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			return cliCtx.PrintOutput(out)
 		},
 	}
+}
+
+// ListCmdDeals list all deals
+func ListCmdDeal(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "list-deal",
+		Short: "list deals",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s", queryRoute, types.ListDeal), nil)
+			if err != nil {
+				fmt.Printf("could not resolve list of deal\n%s\n", err.Error())
+				return nil
+			}
+			var out []types.Deal
+
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+	}
+
 }

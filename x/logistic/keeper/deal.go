@@ -32,6 +32,20 @@ func (k Keeper) GetDeal(ctx sdk.Context, orderid string) (types.Deal, error) {
 	return deal, nil
 }
 
+// function to list deal that store on KVStore
+func (k Keeper) ListDeal(ctx sdk.Context) ([]types.Deal, error) {
+	store := ctx.KVStore(k.storeKey)
+	var dealList []types.Deal
+	iterator := sdk.KVStorePrefixIterator(store, []byte(types.DealPrefix))
+
+	for ; iterator.Valid(); iterator.Next() {
+		var deal types.Deal
+		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &deal)
+		dealList = append(dealList, deal)
+	}
+	return dealList, nil
+}
+
 // function to get deal with defined orderid
 func getDeal(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError error) {
 	orderid := path[0]
@@ -44,5 +58,14 @@ func getDeal(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError err
 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
 
+	return res, nil
+}
+
+func listDeal(ctx sdk.Context, k Keeper) (res []byte, sdkError error) {
+	deal, err := k.ListDeal(ctx)
+	if err != nil {
+		return nil, err
+	}
+	res = codec.MustMarshalJSONIndent(k.cdc, deal)
 	return res, nil
 }
